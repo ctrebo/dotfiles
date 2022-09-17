@@ -6,10 +6,12 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+
 # Aliases
 alias ls="exa --icons"
 alias cat="batcat"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias vim="nvim"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
