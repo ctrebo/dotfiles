@@ -10,7 +10,7 @@ end
 
 # Aliases
 alias ls="exa --icons"
-alias cat="batcat"
+alias cat="bat"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias vim="nvim"
 alias fd="fdfind"

@@ -1,67 +1,71 @@
 -- Note that vim-airline and airline themes are installed manually
-
-local status, packer = pcall(require, "packer")
-if (not status) then
-  print("Packer is not installed")
-  return
-end
-
-vim.cmd [[packadd packer.nvim]]
-
-packer.startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use {
-    'svrana/neosolarized.nvim',
-    requires = { 'tjdevries/colorbuddy.nvim' }
-  }
-  use 'overcache/NeoSolarized'
-  use { "ellisonleao/gruvbox.nvim" }
-  use "drewtempelmeyer/palenight.vim" use 'xiyaowong/nvim-transparent'
-  use 'nvim-lua/plenary.nvim' -- Common utilities
-  use 'vim-airline/vim-airline-themes'
-  use 'vim-airline/vim-airline'
-
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'kyazdani42/nvim-web-devicons' -- File icons
-  use {
-  'nvim-telescope/telescope.nvim', tag = '0.1.0',
-  requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use 'nvim-telescope/telescope-file-browser.nvim'
-  use 'windwp/nvim-autopairs'
-  use 'windwp/nvim-ts-autotag'
-  use 'norcalli/nvim-colorizer.lua'
-  use 'folke/zen-mode.nvim'
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
   })
-  -- use 'github/copilot.vim'
+end
+vim.opt.rtp:prepend(lazypath)
 
-  use 'lewis6991/gitsigns.nvim'
-  use 'dinhhuy258/git.nvim' -- For git blame & browse
+require('lazy').setup({
+  {
+    'svrana/neosolarized.nvim',
+    dependencies = { 'tjdevries/colorbuddy.nvim' }
+  },
 
-  use 'tpope/vim-commentary' -- comment out lines with gcc/gc
+  'overcache/NeoSolarized',
+  { "ellisonleao/gruvbox.nvim" },
+  "drewtempelmeyer/palenight.vim" 'xiyaowong/nvim-transparent',
+  'nvim-lua/plenary.nvim', -- Common utilities
+  'vim-airline/vim-airline-themes',
+  'vim-airline/vim-airline',
+
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  'kyazdani42/nvim-web-devicons', -- File icons
+  {
+  'nvim-telescope/telescope.nvim', tag = '0.1.0',
+  dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
+  'nvim-telescope/telescope-file-browser.nvim',
+  'windwp/nvim-autopairs',
+  'windwp/nvim-ts-autotag',
+  'norcalli/nvim-colorizer.lua',
+  'folke/zen-mode.nvim',
+  ({
+    "iamcco/markdown-preview.nvim",
+    build = function() vim.fn["mkdp#util#install"]() end,
+  }),
+  -- 'github/copilot.vim'
+
+  'lewis6991/gitsigns.nvim',
+  'dinhhuy258/git.nvim', -- For git blame & browse
+
+  'tpope/vim-commentary', -- comment out lines with gcc/gc
 
   -- Lsp plugins 
-  use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
-  use 'onsails/lspkind.nvim'
-  use 'hrsh7th/nvim-cmp' -- Auto completion
-  use 'hrsh7th/cmp-buffer' -- Auto completion
-  use 'hrsh7th/cmp-nvim-lsp' -- Auto completion
-  use 'L3MON4D3/LuaSnip'
+  'neovim/nvim-lspconfig', -- Configurations for Nvim LSP
+  'onsails/lspkind.nvim',
+  'hrsh7th/nvim-cmp', -- Auto completion
+  'hrsh7th/cmp-buffer', -- Auto completion
+  'hrsh7th/cmp-nvim-lsp', -- Auto completion
+  'L3MON4D3/LuaSnip',
   
   -- Other useful plugins
-  use 'mattn/emmet-vim'
-  use 'tpope/vim-surround'
+  'mattn/emmet-vim',
+  'tpope/vim-surround',
 
   -- Python indent
-  use 'Vimjas/vim-python-pep8-indent'
+  'Vimjas/vim-python-pep8-indent',
   
   -- Match html tags
-  use 'AndrewRadev/tagalong.vim'
+  'AndrewRadev/tagalong.vim',
 
-  use 'tpope/vim-fugitive'
-  use { "nathom/filetype.nvim" } -- Replacement for filetype nvim
-  use 'lewis6991/impatient.nvim' -- performance
-end)
+  'tpope/vim-fugitive',
+  { "nathom/filetype.nvim" }, -- Replacement for filetype nvim
+  'lewis6991/impatient.nvim', -- performance
+})
